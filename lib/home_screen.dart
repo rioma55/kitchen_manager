@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'features/ricette/presentation/ricette_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,30 +8,44 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
 
-  final List<Widget> _screens = [
-    const RicetteListScreen(),
-    Center(child: Text('Menù')),
-    Center(child: Text('Magazzino')),
+  static final List<Widget> _screens = <Widget>[
+    const Center(child: Text('Home')),
+    const Center(child: Text('Ricette')),
+    const Center(child: Text('Menù')),
+    const Center(child: Text('Magazzino')),
+    const Center(child: Text('Food Cost')),
+    const SizedBox(), // Placeholder per Lista Spesa
   ];
-
-  final List<String> _titles = ['Ricette', 'Menù', 'Magazzino'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_titles[_currentIndex])),
-      body: _screens[_currentIndex],
+      appBar: AppBar(title: const Text('Kitchen Manager')),
+      body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          if (index == 5) {
+            Navigator.pushNamed(context, '/lista_spesa');
+          } else {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
+        },
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Ricette'),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Menù'),
-          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Magazzino'),
+          BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Menù'),
+          BottomNavigationBarItem(icon: Icon(Icons.inventory), label: 'Magazzino'),
+          BottomNavigationBarItem(icon: Icon(Icons.attach_money), label: 'Food Cost'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Lista Spesa'),
         ],
       ),
     );
   }
 }
+
+

@@ -1,16 +1,26 @@
-# kitchen_manager
 
-A new Flutter project.
+---
 
-## Getting Started
+## 🔗 Funzionalità principali
+- Navigazione tra sezioni (AppBar)
+- Visualizzazione elenco e dettaglio ricette
+- Inserimento nuova ricetta con form validato
+- Provider per gestione dinamica dello stato
+- Planner settimanale, costi, preferenze (in sviluppo)
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Prossimi step
+- Visualizzare e modificare ricette salvate
+- Aggiunta scaling porzioni, filtri, preferiti
+- Integrazione magazzino, food cost, lista spesa
+- Supporto multi-lingua e accessibilità
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ⚙️ Avvio del progetto
+```bash
+git clone https://github.com/tuo-utente/app_cucina.git
+cd app_cucina
+flutter pub get
+flutter run -d windows # o android, chrome, ecc.

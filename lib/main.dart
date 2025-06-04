@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'core/theme/main_theme.dart';
-import 'home_screen.dart';
-import 'features/ricette/presentation/nuova_ricetta_screen.dart'; // ✅ Import schermata ricetta
+import 'package:provider/provider.dart';
+import 'routes/app_router.dart';
+import 'features/ricette/data/ricetta_provider.dart';
 
 void main() {
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
-
-  runApp(const KitchenApp());
+  runApp(const KitchenManagerApp());
 }
 
-class KitchenApp extends StatelessWidget {
-  const KitchenApp({super.key});
+class KitchenManagerApp extends StatelessWidget {
+  const KitchenManagerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Kitchen Manager',
-      debugShowCheckedModeBanner: false,
-      theme: appTheme,
-      home: const HomeScreen(),
-      routes: {
-        '/nuova-ricetta': (context) => const NuovaRicettaScreen(), // ✅ Route registrata
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => RicettaProvider()),
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'Kitchen Manager',
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+          scaffoldBackgroundColor: const Color(0xFFFDF6F0),
+          textTheme: ThemeData.light().textTheme.apply(fontFamily: 'OpenSans'),
+        ),
+        routerConfig: AppRouter().router,
+      ),
     );
   }
 }
-
 
 

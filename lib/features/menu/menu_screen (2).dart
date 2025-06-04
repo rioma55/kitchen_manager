@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ListaSpesaScreen extends StatelessWidget {
-  const ListaSpesaScreen({super.key});
+class MenuScreen extends StatelessWidget {
+  const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista della Spesa'),
+        title: const Text('Menù'),
       ),
       body: const Center(
-        child: Text('Schermata Lista della Spesa'),
+        child: Text('Schermata Menù'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 4, // <-- Lista Spesa è indice 4
+        currentIndex: 1, // <-- Menù è indice 1
         onTap: (index) {
           switch (index) {
             case 0:
@@ -61,4 +61,5 @@ class ListaSpesaScreen extends StatelessWidget {
     );
   }
 }
+
 
