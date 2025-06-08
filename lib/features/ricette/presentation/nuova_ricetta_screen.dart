@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../data/ricetta_model.dart';
-import '../../../core/database_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:kitchen_manager/features/ricette/domain/ricette_repository.dart';
+import 'package:kitchen_manager/features/ricette/data/ricetta_model.dart';
 
 class NuovaRicettaScreen extends StatefulWidget {
   const NuovaRicettaScreen({super.key});
@@ -12,125 +13,98 @@ class NuovaRicettaScreen extends StatefulWidget {
 class _NuovaRicettaScreenState extends State<NuovaRicettaScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController titoloController = TextEditingController();
-  final TextEditingController ingredientiController = TextEditingController();
-  final TextEditingController procedimentoController = TextEditingController();
-  final TextEditingController consigliController = TextEditingController();
-  final TextEditingController presentazioneController = TextEditingController();
+  final _titoloController = TextEditingController();
+  final _ingredientiController = TextEditingController();
+  final _procedimentoController = TextEditingController();
+  final _impiattamentoController = TextEditingController();
+  final _consiglioController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titoloController.dispose();
+    _ingredientiController.dispose();
+    _procedimentoController.dispose();
+    _impiattamentoController.dispose();
+    _consiglioController.dispose();
+    super.dispose();
+  }
+
+  void _salvaRicetta() {
+    if (_formKey.currentState!.validate()) {
+      final ricetta = Ricetta(
+        titolo: _titoloController.text,
+        descrizione: '''
+Ingredienti:
+${_ingredientiController.text}
+
+Procedimento:
+${_procedimentoController.text}
+
+Impiattamento:
+${_impiattamentoController.text}
+
+Consigli dello chef:
+${_consiglioController.text}
+''',
+      );
+      Provider.of<RicetteRepository>(context, listen: false).insert(ricetta);
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Nuova Ricetta')),
+      appBar: AppBar(title: const Text("Nuova Ricetta")),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              const Text(
-                "Inserisci i dettagli della tua ricetta",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
               TextFormField(
-                controller: titoloController,
-                decoration: const InputDecoration(
-                  labelText: 'Nome Ricetta',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) => value!.isEmpty ? 'Inserisci il nome' : null,
+                controller: _titoloController,
+                decoration: const InputDecoration(labelText: 'Nome Ricetta'),
+                validator: (value) => value!.isEmpty ? 'Campo obbligatorio' : null,
               ),
-              const SizedBox(height: 15),
               TextFormField(
-                controller: ingredientiController,
-                decoration: const InputDecoration(
-                  labelText: 'Ingredienti',
-                  border: OutlineInputBorder(),
-                ),
+                controller: _ingredientiController,
+                decoration: const InputDecoration(labelText: 'Ingredienti'),
                 maxLines: 3,
               ),
-              const SizedBox(height: 15),
               TextFormField(
-                controller: procedimentoController,
-                decoration: const InputDecoration(
-                  labelText: 'Procedimento',
-                  border: OutlineInputBorder(),
-                ),
+                controller: _procedimentoController,
+                decoration: const InputDecoration(labelText: 'Procedimento'),
                 maxLines: 4,
               ),
-              const SizedBox(height: 15),
               TextFormField(
-                controller: consigliController,
-                decoration: const InputDecoration(
-                  labelText: 'Consigli dello chef',
-                  border: OutlineInputBorder(),
-                ),
+                controller: _impiattamentoController,
+                decoration: const InputDecoration(labelText: 'Impiattamento'),
                 maxLines: 2,
               ),
-              const SizedBox(height: 15),
               TextFormField(
-                controller: presentazioneController,
-                decoration: const InputDecoration(
-                  labelText: 'Presentazione del piatto',
-                  border: OutlineInputBorder(),
-                ),
+                controller: _consiglioController,
+                decoration: const InputDecoration(labelText: 'Consigli dello chef'),
                 maxLines: 2,
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _salvaRicetta,
+                child: const Text('Salva Ricetta'),
+              ),
             ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        color: Colors.deepPurple,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SafeArea(
-          child: GestureDetector(
-            onTap: () async {
-              if (_formKey.currentState!.validate()) {
-                final nuovaRicetta = Ricetta(
-                  titolo: titoloController.text,
-                  ingredienti: ingredientiController.text,
-                  procedimento: procedimentoController.text,
-                  consigli: consigliController.text,
-                  presentazione: presentazioneController.text,
-                );
-
-                try {
-                  await DatabaseHelper.instance.insertRicetta(nuovaRicetta);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Ricetta salvata con successo!')),
-                  );
-                  Navigator.pop(context);
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Errore nel salvataggio: $e')),
-                  );
-                }
-              }
-            },
-            child: const SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: Center(
-                child: Text(
-                  'SALVA',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-              ),
-            ),
           ),
         ),
       ),
     );
   }
 }
+
+
+
+
+
+
 
 
 

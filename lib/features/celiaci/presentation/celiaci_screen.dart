@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key});
+class CeliaciScreen extends StatelessWidget {
+  const CeliaciScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menù'),
+        title: const Text('Celiaci'),
       ),
       body: const Center(
-        child: Text('Schermata Menù'),
+        child: Text('Sezione dedicata ai celiaci'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 1, // <-- Menù è indice 1
+        currentIndex: 0, // Puoi regolare l'indice se lo aggiungi nel menu
         onTap: (index) {
           switch (index) {
             case 0:
@@ -61,5 +61,3 @@ class MenuScreen extends StatelessWidget {
     );
   }
 }
-
-

@@ -3,11 +3,7 @@ class Ricetta {
   final String titolo;
   final String descrizione;
 
-  Ricetta({
-    this.id,
-    required this.titolo,
-    required this.descrizione,
-  });
+  Ricetta({this.id, required this.titolo, required this.descrizione});
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,12 +20,12 @@ class Ricetta {
       descrizione: map['descrizione'],
     );
   }
-
-  @override
-  String toString() {
-    return 'Ricetta{id: $id, titolo: $titolo, descrizione: $descrizione}';
-  }
 }
+
+
+
+
+
 
 
 

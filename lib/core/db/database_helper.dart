@@ -1,13 +1,13 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DBHelper {
-  static final DBHelper _instance = DBHelper._();
+class DatabaseHelper {
+  static final DatabaseHelper _instance = DatabaseHelper._();
   static Database? _database;
 
-  DBHelper._();
+  DatabaseHelper._();
 
-  factory DBHelper() => _instance;
+  factory DatabaseHelper() => _instance;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -36,7 +36,11 @@ class DBHelper {
 
   Future<void> insertRicetta(Map<String, dynamic> data) async {
     final db = await database;
-    await db.insert('ricette', data, conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.insert(
+      'ricette',
+      data,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<Map<String, dynamic>>> getRicette() async {

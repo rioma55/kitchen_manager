@@ -1,26 +1,92 @@
+# 🍽️ App Cucina - Flutter Multipiattaforma
+
+Un'app per la gestione di ricette, pensata per cuochi, chef e operatori di cucina professionale. Compatibile con **Android** e **Windows Desktop**.
 
 ---
 
-## 🔗 Funzionalità principali
-- Navigazione tra sezioni (AppBar)
-- Visualizzazione elenco e dettaglio ricette
-- Inserimento nuova ricetta con form validato
-- Provider per gestione dinamica dello stato
-- Planner settimanale, costi, preferenze (in sviluppo)
+## 🚀 Funzionalità attuali
+
+- Visualizzazione ricette da database SQLite
+- Aggiunta nuova ricetta
+- Dettaglio ricetta con ID
+- Navigazione multipiattaforma con GoRouter
+- UI responsive e tema coerente
 
 ---
 
-## 🚀 Prossimi step
-- Visualizzare e modificare ricette salvate
-- Aggiunta scaling porzioni, filtri, preferiti
-- Integrazione magazzino, food cost, lista spesa
-- Supporto multi-lingua e accessibilità
+## 🧱 Struttura del progetto
+
+lib/
+├── core/
+│ └── database/ # DatabaseHelper + SQL tables
+├── features/
+│ └── ricette/
+│ ├── models/ # Ricetta
+│ ├── repository/ # RicetteRepository
+│ └── presentation/ # Schermate UI
+├── routes/
+│ └── app_router.dart # Routing GoRouter
+├── main.dart # Entry point
+
+yaml
+Copia
+Modifica
 
 ---
 
-## ⚙️ Avvio del progetto
+## 🛠️ Requisiti
+
+- Flutter 3.10+
+- Dart 2.18+
+- SDK Android o Visual Studio con Desktop (Windows)
+
+---
+
+## 📦 Installazione
+
 ```bash
-git clone https://github.com/tuo-utente/app_cucina.git
-cd app_cucina
 flutter pub get
-flutter run -d windows # o android, chrome, ecc.
+▶️ Esecuzione
+Su Android:
+bash
+Copia
+Modifica
+flutter run -d emulator-5554
+Su Windows:
+bash
+Copia
+Modifica
+flutter run -d windows
+📚 Dipendenze principali
+go_router: gestione delle rotte
+
+sqflite: database locale
+
+path: gestione dei percorsi file
+
+🔐 Note
+Il database app_cucina.db viene creato automaticamente al primo avvio.
+
+Le tabelle vengono definite in tables.dart e gestite da DatabaseHelper.
+
+🧪 Todo futuri
+Modifica/eliminazione ricette
+
+Gestione magazzino e food cost
+
+Funzionalità per diete speciali
+
+Sync cloud e notifiche
+
+📄 Licenza
+MIT
+
+yaml
+Copia
+Modifica
+
+---
+
+✅ È pronto per essere salvato nel tuo progetto come `README.md`.  
+Vuoi ora passare a test o continuare con altri modul
+

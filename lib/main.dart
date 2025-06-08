@@ -1,33 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'routes/app_router.dart';
-import 'features/ricette/data/ricetta_provider.dart';
+import 'package:kitchen_manager/features/ricette/presentation/ricette_list_screen.dart';
+import 'package:kitchen_manager/features/ricette/presentation/ricetta_dettaglio_screen.dart';
+import 'package:kitchen_manager/features/ricette/presentation/nuova_ricetta_screen.dart';
+import 'package:kitchen_manager/features/ricette/domain/ricette_repository.dart';
 
 void main() {
-  runApp(const KitchenManagerApp());
+  runApp(const MyApp());
 }
 
-class KitchenManagerApp extends StatelessWidget {
-  const KitchenManagerApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => RicettaProvider()),
-      ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (_) => RicetteRepository(),
+      child: MaterialApp(
         title: 'Kitchen Manager',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-          scaffoldBackgroundColor: const Color(0xFFFDF6F0),
-          textTheme: ThemeData.light().textTheme.apply(fontFamily: 'OpenSans'),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          useMaterial3: true,
         ),
-        routerConfig: AppRouter().router,
+        home: const RicetteListScreen(),
+        routes: {
+          '/dettaglio_ricetta': (context) {
+            final int id = ModalRoute.of(context)!.settings.arguments as int;
+            return RicettaDettaglioScreen(id: id);
+          },
+          '/nuova_ricetta': (context) => const NuovaRicettaScreen(),
+        },
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
 
 

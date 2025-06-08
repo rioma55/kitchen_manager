@@ -6,7 +6,6 @@ class DBHelper {
   static Database? _database;
 
   DBHelper._();
-
   factory DBHelper() => _instance;
 
   Future<Database> get database async {
@@ -43,5 +42,30 @@ class DBHelper {
     final db = await database;
     return await db.query('ricette');
   }
+
+  Future<int> updateRicetta(int id, Map<String, dynamic> data) async {
+    final db = await database;
+    return await db.update(
+      'ricette',
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteRicetta(int id) async {
+    final db = await database;
+    return await db.delete(
+      'ricette',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future close() async {
+    final db = await database;
+    db.close();
+  }
 }
+
 
